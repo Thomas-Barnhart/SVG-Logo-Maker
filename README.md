@@ -40,7 +40,7 @@ To use the SVG Logo Maker locally, follow these steps:
 
 ## Live Demo
 
-Check out the live demo of the SVG Logo Maker at .
+Check out the live demo of the SVG Logo Maker below ![Gif of the terminal](./images/SVG-logo-terminal.gif)
 
 ### License
 
