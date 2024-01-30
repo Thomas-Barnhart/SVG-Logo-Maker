@@ -4,8 +4,8 @@ const inquirer = require("inquirer");
 // Importing the File System module to read and write files
 const fs = require("fs");
 
-// Importing shape classes (Triangle, Square, Circle) from the shapes module
-const { Triangle, Square, Circle } = require("./lib/shapes");
+// Importing shape classes (Triangle, Square, Circle, Oval, Trapezoid) from the shapes module
+const { Triangle, Square, Circle, Oval, Trapezoid } = require("./lib/shapes");
 
 // Function to generate the SVG file based on user input
 function writeToFile(fileName, answers) {
@@ -29,9 +29,15 @@ function writeToFile(fileName, answers) {
   } else if (answers.shape === "Square") {
     shapeChoice = new Square();
     svgString += `<rect x="73" y="40" width="160" height="160" fill="${answers.shapeBackgroundColor}"/>`;
-  } else {
+  } else if (answers.shape === "Circle") {
     shapeChoice = new Circle();
     svgString += `<circle cx="150" cy="115" r="80" fill="${answers.shapeBackgroundColor}"/>`;
+  } else if (answers.shape === "Oval") {
+    shapeChoice = new Oval();
+    svgString += `<ellipse cx="150" cy="115" rx="100" ry="60" fill="${answers.shapeBackgroundColor}"/>`;
+  } else if (answers.shape === "Trapezoid") { 
+    shapeChoice = new Trapezoid();
+    svgString += `<polygon points="70, 40 230, 40 280, 160 20, 160" fill="${answers.shapeBackgroundColor}"/>`;
   }
 
   // Add <text> tag for text alignment, content, color, and default font size of "40"
@@ -70,11 +76,11 @@ function promptUser() {
         message: "Choose the text color (color keyword or hexadecimal):",
         name: "textColor",
       },
-      // Prompt for the shape of the logo (Triangle, Square, Circle)
+      // Prompt for the shape of the logo (Triangle, Square, Circle, Oval, or Trapezoid)
       {
         type: "list",
         message: "Choose the shape of the logo:",
-        choices: ["Triangle", "Square", "Circle"],
+        choices: ["Triangle", "Square", "Circle", "Oval", "Trapezoid"],
         name: "shape",
       },
       // Prompt for the background color of the shape
@@ -92,7 +98,7 @@ function promptUser() {
         promptUser();
       } else {
         // Call the writeToFile function to generate the SVG file
-        writeToFile("images/Logo.svg", answers);
+        writeToFile("examples/Logo.svg", answers);
       }
     });
 }
